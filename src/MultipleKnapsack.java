@@ -9,6 +9,12 @@ public class MultipleKnapsack {
     private LinkedList<KnapsackItem> items;
     private int value;
 
+    /**
+     * Method that gets all neighbors a current solution to the Multiple Knapsack Problem has.
+     * @param knapsacks
+     * @param items
+     * @return
+     */
     public LinkedList<MultipleKnapsack> getNeighbors(LinkedList<Knapsack> knapsacks, LinkedList<KnapsackItem> items) {
         LinkedList<MultipleKnapsack> knapsackNeighbors = new LinkedList<>();
 
@@ -45,7 +51,7 @@ public class MultipleKnapsack {
 
                                 neighbor.setKnapsacks(currentKnapsack);
                                 neighbor.setItems(currentItems);
-                                neighbor.shuffleItemsInKnapsacks(); //Move around items to make place - Might not work with the current solution
+                                neighbor.shuffleItemsInKnapsacks();
                                 neighbor.greedyMultipleKnapsack(currentItems);
                                 neighbor.calculateValue();
                                 knapsackNeighbors.add(neighbor);
@@ -59,6 +65,11 @@ public class MultipleKnapsack {
         return knapsackNeighbors;
     }
 
+    /**
+     * Method that tries to find neighbors for a solution that have a better outcome than the solution itself.
+     * @param knapsacks
+     * @return
+     */
     public MultipleKnapsack neighborSearch(MultipleKnapsack knapsacks) {
         LinkedList<MultipleKnapsack> neighbors = getNeighbors(knapsacks.getKnapsacks(), knapsacks.getItems());
         for (MultipleKnapsack neighbor : neighbors) {
@@ -70,6 +81,9 @@ public class MultipleKnapsack {
         return knapsacks;
     }
 
+    /**
+     * Method that shuffles or packs the items so that there's space for other items to be added.
+     */
     public void shuffleItemsInKnapsacks() {
         LinkedList<KnapsackItem> itemsInKnapsacks = new LinkedList<>();
         for (Knapsack knapsack : knapsacks) {
@@ -102,6 +116,10 @@ public class MultipleKnapsack {
         }
     }
 
+    /**
+     * Method that solves the Multiple Knapsack Problem by a greedy approach.
+     * @param items
+     */
     public void greedyMultipleKnapsack(LinkedList<KnapsackItem> items) {
 
         Collections.sort(items, new Comparator<KnapsackItem>() {
@@ -143,6 +161,9 @@ public class MultipleKnapsack {
         }
     }
 
+    /**
+     * Method that calculates a MultipleKnapsack's total value.
+     */
     public void calculateValue() {
         int value = 0;
 
@@ -155,6 +176,9 @@ public class MultipleKnapsack {
         this.value = value;
     }
 
+    /**
+     * Method that prints out the result of a MultipleKnapsack.
+     */
     public void printResult() {
         for (Knapsack knapsack : knapsacks) {
             System.out.println("Knapsack\n" + "Name: " + knapsack.getName()
@@ -169,31 +193,58 @@ public class MultipleKnapsack {
         System.out.println("Total value: " + value);
     }
 
+    /**
+     * Method that sets the items that are not in a knapsack already.
+     * @param items
+     */
     public void setItems(LinkedList<KnapsackItem> items) {
         this.items = items;
     }
 
+    /**
+     * Method that sets all of the knapsacks.
+     * @param knapsacks
+     */
     public void setKnapsacks(LinkedList<Knapsack> knapsacks) {
         this.knapsacks = knapsacks;
     }
 
+    /**
+     * Method that gets the total value of a MultipleKnapsack.
+     * @return
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Constructor that instantiates necessary objects.
+     */
     public MultipleKnapsack() {
         knapsacks = new LinkedList<>();
         items = new LinkedList<>();
     }
 
+    /**
+     * Method that gets all of the knapsacks in the MultipleKnapsack.
+     * @return
+     */
     public LinkedList<Knapsack> getKnapsacks() {
         return knapsacks;
     }
 
+    /**
+     * Method that gets all of the items that are not in a knapsack already.
+     * @return
+     */
     public LinkedList<KnapsackItem> getItems() {
         return items;
     }
 
+    /**
+     * Method that adds a knapsack into the MultipleKnapsack.
+     * @param knapsack
+     */
     public void addKnapsack(Knapsack knapsack) {
         knapsacks.add(knapsack);
     }
