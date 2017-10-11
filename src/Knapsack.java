@@ -1,17 +1,24 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Knapsack {
 
     private int cap;
     private int startWeight;
     private String name;
-    private ArrayList<KnapsackItem> items;
+    private LinkedList<KnapsackItem> items;
 
     public Knapsack(int cap, String name) {
         this.cap = cap;
         this.name = name;
         this.startWeight = cap;
-        items = new ArrayList<>();
+        items = new LinkedList<>();
+    }
+
+    public Knapsack(Knapsack knapsack) {
+        this.cap = knapsack.getCap();
+        this.startWeight = knapsack.getStartWeight();
+        this.name = knapsack.getName();
+        this.items = new LinkedList<>(knapsack.getItems()); //Might not work, look into this later.
     }
 
     public void addItem(KnapsackItem item) {
@@ -21,12 +28,12 @@ public class Knapsack {
         }
     }
 
-    public int getStartWeight() {
-        return startWeight;
+    public void resetCap() {
+        cap = startWeight;
     }
 
-    public void setStartWeight(int startWeight) {
-        this.startWeight = startWeight;
+    public int getStartWeight() {
+        return startWeight;
     }
 
     public int getCap() {
@@ -41,7 +48,7 @@ public class Knapsack {
         return name;
     }
 
-    public ArrayList<KnapsackItem> getItems() {
+    public LinkedList<KnapsackItem> getItems() {
         return items;
     }
 }
